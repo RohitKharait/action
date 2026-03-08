@@ -20,4 +20,6 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             docker pull nginx:latest
+            docker stop myapp || true
+            docker rm myapp || true
             docker run -d -p 80:80 --name myapp nginx:latest
