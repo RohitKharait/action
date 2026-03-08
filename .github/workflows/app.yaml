@@ -1,0 +1,10 @@
+name: my first project of actions
+
+on:
+ push:
+ branches:
+   - master
+
+jobs:
+ deploy:
+    runs-on: 

@@ -1,0 +1,22 @@
+name: my first project of actions
+
+on:
+ push:
+ branches:
+   - master
+
+jobs:
+ deploy:
+  run-on: ubuntu-latest
+  steps:
+   - name: checkout code
+     uses: actions/checkout@v2
+   - name: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.ubuntu }}
+        key: ${{ secrets.KEY }}
+        script: |
+          cd  actions
+          docker pull nginx:latest
+          docker run -d -p 80:80 nginx:latest
