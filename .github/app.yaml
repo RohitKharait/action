@@ -1,22 +1,23 @@
-name: my first project of actions
+name: My First GitHub Actions Project
 
 on:
- push:
- branches:
-   - master
+  push:
+    branches:
+      - master
 
 jobs:
- deploy:
-  run-on: ubuntu-latest
-  steps:
-   - name: checkout code
-     uses: actions/checkout@v2
-   - name: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.ubuntu }}
-        key: ${{ secrets.KEY }}
-        script: |
-          cd  actions
-          docker pull nginx:latest
-          docker run -d -p 80:80 nginx:latest
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy to server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            docker pull nginx:latest
+            docker run -d -p 80:80 --name myapp nginx:latest
