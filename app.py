@@ -6,7 +6,7 @@ todos = ["Buy groceries", "Learn DevOps", "Build CI/CD pipeline"]
 
 @app.route('/')
 def home():
-    return jsonify({"message": "Hello from DevOps tuzya aaicha kida!", "status": "running"})
+    return jsonify({"message": "Hello from DevOps become devops Engineer Soon!", "status": "running"})
 
 @app.route('/todos')
 def get_todos():
