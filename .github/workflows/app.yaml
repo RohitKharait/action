@@ -24,8 +24,15 @@ jobs:
       - name: Push Docker image
         run: docker push krishna112/myapp:latest
 
+      - name: Trivy security scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: krishna112/myapp:latest
+          format: table
+          severity: CRITICAL,HIGH
+
       - name: Deploy to K8s
         run: |
           mkdir -p ~/.kube
           echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
-          kubectl apply -f k8s/deployment.yaml --validate=false
+          kubectl apply -f k8s/deployment.yaml  
